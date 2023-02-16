@@ -1,7 +1,7 @@
-# ComposeAlertDialogUtils
+# Jetpack Compose Confirmation Dialog Utils
 A utils class for alert dialogs in compose
 
-Just copy the class to you project and use it as below:
+Just copy the class ConfirmationDialog.kt to you project and use it as below:
 
 ```kotlin
 @Preview
