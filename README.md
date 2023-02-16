@@ -3,6 +3,7 @@ A utils class for alert dialogs in compose
 
 Just copy the class to you project and use it as below:
 
+```kotlin
 @Preview
 @Composable
 private fun ConfirmationDialogPreview() {
@@ -17,3 +18,4 @@ private fun ConfirmationDialogPreview() {
         )
     }
 }
+```
