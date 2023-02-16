@@ -32,19 +32,31 @@ fun ConfirmationDialog(
     dismissBtnAction: () -> Unit = {},
     confirmBtnColor: Color = MaterialTheme.colors.primary
 ) {
+    val titleToDisplay =
+        if (title.isNotEmpty()) title else if (titleResId != null) stringResource(titleResId) else ""
+    val bodyToDisplay =
+        if (body.isNotEmpty()) body else if (bodyResId != null) stringResource(bodyResId) else ""
     if (showDialog.value) {
-        AlertDialog(modifier = modifier.fillMaxWidth(0.82f),
+        AlertDialog(modifier = modifier.fillMaxWidth(0.87f),
             properties = DialogProperties(usePlatformDefaultWidth = false),
             onDismissRequest = { showDialog.value = false },
-            title = if (title.isNotEmpty()) {
-                { Text(title) }
-            } else if (titleResId != null) {
-                { Text(stringResource(id = titleResId)) }
+            title = if (titleToDisplay.isNotEmpty()) {
+                {
+                    Text(
+                        text = titleToDisplay,
+                        style = WagzThemeTypography.h6,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
             } else null,
-            text = if (body.isNotEmpty()) {
-                { Text(body) }
-            } else if (bodyResId != null) {
-                { Text(stringResource(id = bodyResId)) }
+            text = if (bodyToDisplay.isNotEmpty()) {
+                {
+                    Text(
+                        text = bodyToDisplay,
+                        style = WagzThemeTypography.body1,
+                        color = Black
+                    )
+                }
             } else null,
             confirmButton = {
                 val buttonText = if (confirmBtnText.isNotEmpty()) confirmBtnText
@@ -55,7 +67,11 @@ fun ConfirmationDialog(
                         showDialog.value = false
                         confirmBtnAction()
                     }) {
-                        Text(text = buttonText.uppercase(), color = confirmBtnColor)
+                        Text(
+                            text = buttonText.uppercase(),
+                            color = confirmBtnColor,
+                            letterSpacing = 1.sp
+                        )
                     }
                 }
             },
@@ -63,12 +79,16 @@ fun ConfirmationDialog(
                 val buttonText = if (dismissBtnText.isNotEmpty()) dismissBtnText
                 else if (dismissBtnTextResId != null) stringResource(id = dismissBtnTextResId)
                 else ""
-                if (buttonText.isNotEmpty()) TextButton(onClick = {
-                    showDialog.value = false
-                    dismissBtnAction()
-                }) {
-                    Text(text = buttonText.uppercase())
-                }
+                if (buttonText.isNotEmpty())
+                    TextButton(onClick = {
+                        showDialog.value = false
+                        dismissBtnAction()
+                    }) {
+                        Text(
+                            text = buttonText.uppercase(),
+                            letterSpacing = 1.sp
+                        )
+                    }
             })
     }
 }
